@@ -1,0 +1,89 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import Layout from '@/views/Layout/index.vue'
+import Login from '@/views/Login/index.vue'
+import Member from '@/views/Member/index.vue'
+import Home from '@/views/Home/index.vue'
+import Category from '@/views/Category/index.vue'
+import SubCategory from '@/views/SubCategory/index.vue'
+import CartList from '@/views/CartList/index.vue'
+import Checkout from '@/views/Checkout/index.vue'
+import Detail from '@/views/Detail/index.vue'
+import PayBack from '@/views/Pay/pannnel/PayBack.vue'
+import Pay from '@/views/Pay/index.vue'
+import UserInfo from '@/views/Member/components/UserInfo.vue'
+import UserOrder from '@/views/Member/components/UserOrder.vue'
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: '/',
+            name: 'layout',
+            component: Layout,
+            children: [
+                {
+                    path: '',
+                    name: 'home',
+                    component: Home
+                },
+                {
+                    path: 'category/:id',
+                    name: 'category',
+                    component: Category
+                },
+                {
+                    path: 'category/sub/:id',
+                    component: SubCategory
+                },
+                {
+                    path: 'cartlist',
+                    component: CartList
+                },
+                {
+                    path: 'checkout',
+                    component: Checkout
+                },
+                {
+                    path: 'detail/:id',
+                    component: Detail
+                },
+                {
+                    path: 'pay',
+                    component: Pay
+                },
+                {
+                    path: 'paycallback',
+                    component: PayBack
+                }
+            ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+            // route level code-splitting
+            // this generates a separate chunk (About.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            // component: () => import('../views/AboutView.vue')
+        },
+        {
+            path: '/member',
+            component: Member,
+            children: [
+                {
+                    path: '',
+                    component: UserInfo
+                },
+                {
+                    path: 'order',
+                    component: UserOrder
+                }
+            ]
+        }
+    ],
+    scrollBehavior(to, from, savedPosition) {
+        // 滚动到顶部
+        return { top: 0 }
+    }
+})
+
+export default router
